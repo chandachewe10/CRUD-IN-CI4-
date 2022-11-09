@@ -74,6 +74,23 @@ return view("$header",$all_registered_users)
 
 
 
+
+public function edit($id,$header="header",$footer="footer",$title="EDIT USER"){
+
+ $edit_user = new ModelsCrud();
+ $data = ([
+    'user' => $edit_user->find_user($id),
+    'title' => $title,
+ ]); 
+
+ return view("$header")
+               .view('edit',$data)
+               .view("$footer");
+
+}
+
+
+
     public function update($header="header",$footer="footer",$title="ADD USER")
     {
        $data = ['title'=>$title];

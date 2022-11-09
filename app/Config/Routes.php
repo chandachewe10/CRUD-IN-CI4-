@@ -42,6 +42,10 @@ $routes->get('/create', 'Crud::index');
 
 $routes->post('/store', 'Crud::store');
 
+$routes->get('edit/(:any)', 'Crud::edit/$1');
+
+$routes->get('delete/(:any)', 'Crud::delete/$1');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
