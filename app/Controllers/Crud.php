@@ -10,10 +10,26 @@ class Crud extends BaseController
    
 public function index($header="header",$footer="footer",$title="ADD USER")
     {
-       $data = ['title'=>$title];
-       return view("$header")
-       .view('create',$data)
-       .view("$footer");
+
+        // Check for users if any in the db   
+
+
+$model = model(ModelsCrud::class);
+
+$all_registered_users = ([ 
+    'data_users' => $model->get_users()
+]); 
+
+$data = ['title'=>$title];
+
+return view("$header",$all_registered_users)
+.view('create',$data)
+.view("$footer");
+
+
+
+
+
     }
 
 
@@ -28,12 +44,20 @@ public function index($header="header",$footer="footer",$title="ADD USER")
                 "name" => $this->request->getPost("name"),
                 "email" => $this->request->getPost("email"),
                ];
+
         
                $userModel = model(ModelsCrud::class);
                $userModel->save($user_data);
                $session = session();
                $session->setFlashdata('user_stored', 'User created successfully');
-               return view("$header")
+
+               $all_registered_users = ([ 
+                'data_users' => $userModel->get_users()
+            ]); 
+
+
+
+               return view("$header",$all_registered_users)
                .view('create',$data)
                .view("$footer");
         

@@ -21,7 +21,7 @@
 <?= service('validation')->listErrors() ?> 
 
 <!--success Message-->  
-<?php if (session()->getFlashdata('user_stored') !== NULL) : ?>
+<?php if (session()->getFlashdata('user_stored') !== null) : ?>
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <?php echo session()->getFlashdata('user_stored'); ?>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -30,7 +30,7 @@
 
 
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                    
                     <div class="form-outline flex-fill mb-0">
                     <label class="form-label" for="Name">Name</label>
                       <input type="text" id="Name" name="name" class="form-control" />
@@ -39,7 +39,7 @@
                   </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                    
                     <div class="form-outline flex-fill mb-0">
                     <label class="form-label" for="Email">Email</label>
                       <input type="email" name="email" id="Email" class="form-control" />
@@ -57,18 +57,103 @@
                 </form>
 
               </div>
+
+
+
+
+
+
+
               <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
 
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
                   class="img-fluid" alt="Sample image">
 
-              </div>
+              </div>              
             </div>
           </div>
         </div>
       </div>
+      
     </div>
+    
   </div>
 </section>
+
+
+
+<center>
+<div class="shadow-sm p-3 mb-5 bg-white rounded w-75">
+
+<!--Datatable here -->  
+
+<table class="table table-bordered" id="users_table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Action</th>
+                
+               
+            </tr>
+        </thead>
+        <tbody>
+<tr>
+        <?php if (! empty($data_users) && is_array($data_users)): ?>
+
+<?php foreach ($data_users as $data): ?>
+
+    <td><?= esc($data['id']) ?></td>
+    <td><?= esc($data['name']) ?></td>
+    <td><?= esc($data['email']) ?></td>
+    <td>
+      <span><a href="/edit/<?= esc($data['id']); ?>"><i class="fa fa-edit"></i></a></span>
+      <span><a href="/edit/<?= esc($data['id']); ?>"><i class="fa fa-trash-o"></i></a></span>
+  </td>
+
+</tr>
+
+<?php endforeach ?>
+
+<?php else: ?>
+
+<h3>No User Created</h3>
+
+<p>Please Create A User</p>
+
+<?php endif ?>
+
+
+        </tbody>
+    </table>
+
+<!--End DataTable here -->
+
+</div>
+
+    <!-- Js DataTable Script-->
+</center>
+
+
+
+
+
+    <script>  
+    $(document).ready( function () {
+    $('#users_table').DataTable();
+} );
+
+
+</script>
+
+<!--End Js DataTable Script-->
+
+
+
+
+
+<!--End Getting dataTables-->
+
 
 
