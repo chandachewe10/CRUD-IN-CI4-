@@ -120,10 +120,21 @@ class Crud extends BaseController
 
 
 
-        public function delete($header="header", $footer="footer", $title="ADD USER")
+        public function delete($id,$header="header", $footer="footer", $title="ADD USER")
         {
+            $delete_user = model(ModelsCrud::class);
+            $delete_user->destroy($id);
+            $session = session();
+            $session->setFlashdata('user_stored', 'Trashed successfully');
+
+
+            $all_registered_users = ([
+                'data_users' => $delete_user->get_users()
+           ]);
+
+
             $data = ['title'=>$title];
-            return view("$header")
+            return view("$header",$all_registered_users)
             .view('create', $data)
             .view("$footer");
         }

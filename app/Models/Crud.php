@@ -26,4 +26,10 @@ public function find_user($user_id){
     return $this->where(['id'=>$user_id])->first();
 }    
 
+
+// Destroy User  
+public function destroy($user_id){
+    return $this->where(['id'=>$user_id])->delete();
+}    
+
 }
